@@ -55,6 +55,9 @@ class ApiChannel implements Channel
 
     public function multi($users, $html_template)
     {
+        $users = $users->map(function($item){
+            return $item->toArray();
+        });
         $from_email = get_option('from_email');
         if (empty($from_email)) {
             throw new \Exception("Please, set email of sender into theme options on admin dashboard", 400);

@@ -23,6 +23,7 @@ class EmailServiceProvider extends ServiceProvider
                     break;
                 case 'wp_mail':
                     $this->resetOptions();
+                    $this->settingForWpMailChannel();
                     break;
                 case 'mailchimp':
                     $this->resetOptions();
@@ -108,6 +109,10 @@ class EmailServiceProvider extends ServiceProvider
         ]);
 
         App::bind(\Vicoders\Mail\Channels\Channel::class, \Vicoders\Mail\Channels\ApiChannel::class);
+    }
+
+    public function settingForWpMailChannel() {
+        App::bind(\Vicoders\Mail\Channels\Channel::class, \Vicoders\Mail\Channels\WpMailChannel::class);
     }
 
     public function resetOptions() {

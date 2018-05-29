@@ -40,9 +40,7 @@ class Email
             throw new \Exception("Parammeters must an array", 2);
         }
         $template = BladeCompiler::compileString($html_template, $params);
-        $users = $users->map(function($item){
-            return $item->toArray();
-        });
+        
         $this->channel->multi($users, $template);
     }
 }
