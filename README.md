@@ -37,17 +37,6 @@ composer require vicoders/mail
   + wp_mail
   + mailchimp (updating ...)
 
-### Working with local repository
-To add namespace of package with PSR-4, add the following code to your composer.json file then run command `composer dump-autoload` or `composer dump-autoload -o` to optimize
-
-```php
-    "autoload": {
-        "psr-4": {
-            "Vicoders\\Mail\\": "mail/src/"
-        }
-    },
-```
-
 ##### Crazy Way 1: Send to a email
 <ul>
     <li>Create Input data</li>
