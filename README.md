@@ -63,7 +63,8 @@ $email_template = file_get_contents(PATH_HTML_TEMPLATE);
 
 $user = new \Vicoders\Mail\Models\User();
 $user->setName('Garung')
-->setEmail('daudq.info@gmail.com')
+->setEmail('email@gmail.com')
+->setSubject('Subject email')
 ->setParams($data);
 
 $email = new \Vicoders\Mail\Email();
@@ -110,6 +111,7 @@ $email->send($user, $email_template);
 	    $tmp_user = new \Vicoders\Mail\Models\User();
 	    $tmp_user->setName($item['name_singer'])
 	    ->setEmail($item['email'])
+	    ->setSubject('Subject email')
 	    ->setParams($params);
 	    return $tmp_user;
 	});
