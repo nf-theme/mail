@@ -10,28 +10,34 @@
 
  
 <a name="installation"></a>
-#### Installation
+## Installation
+
+### Install package via Composer
+
+```php
+composer require vicoders/mail
+```
+
+### Set up config
 > Open `config/app.php` file and insert a below line: 
 
 ```php
 "providers"  => [
-    ... (Other Provider)
+    //... (Other Provider)
     \Vicoders\Mail\EmailServiceProvider::class
 ],
 ``` 
 
 <a name="local-reposoitory"></a>
-## Add mail folder in your theme
-> Add notifications folder in your theme
+### Choose type channel
+> Login with admin account, click "Theme Configuration" and choose "For Send Email" tab on admin left sidebar.
 
-## Choose type channel
-> Login with admin account, click "Theme Configuration" and choose "For Send Email" tab
 - Has 3 type:
   + Api
   + wp_mail
-  + mailchimp
+  + mailchimp (updating ...)
 
-## Working with local repository
+### Working with local repository
 To add namespace of package with PSR-4, add the following code to your composer.json file then run command `composer dump-autoload` or `composer dump-autoload -o` to optimize
 
 ```php
