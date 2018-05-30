@@ -87,11 +87,11 @@ $email->send($user, $email_template);
 ```php
    $user_data = [
 	    [
-	        'email' => 'daudq.info@gmail.com',
+	        'email' => 'daudq.test@gmail.com',
 	        'name_singer' => 'garung_1'
 	    ],
 	    [
-	        'email' => 'daudq@vicoders.com',
+	        'email' => 'daudq.test2@gmail.com',
 	        'name_singer' => 'garung_2'
 	    ]
 	];
