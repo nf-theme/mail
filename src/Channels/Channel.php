@@ -23,4 +23,11 @@ interface Channel extends ChannelInterface
      * @return [type]                [description]
      */
     public function multi($users, $html_template);
+
+    /**
+     * [config Config host and relate]
+     * @param  array  $config [description]
+     * @return [type]         [description]
+     */
+    public function setConfig($config = []);
 }

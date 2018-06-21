@@ -12,8 +12,13 @@ use Vicoders\Mail\Models\User;
  */
 class WpMailChannel implements Channel
 {
-    public function __construct()
-    {}
+    /**
+     * [$config description]
+     * @var array
+     */
+    protected $config = [];
+
+    public function __construct() {}
 
     /**
      * [send description]
@@ -39,5 +44,10 @@ class WpMailChannel implements Channel
                 $this->send($user, $html_template);
             }
         }
+    }
+
+    public function setConfig($config = []) {
+        $this->config = $config;
+        return $this;
     }
 }

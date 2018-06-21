@@ -13,10 +13,16 @@ class User
     protected $name = '';
 
     /**
-     * [$email description]
-     * @var [type]
+     * [$from description]
+     * @var string
      */
-    protected $email = '';
+    protected $from = '';
+
+    /**
+     * [$to description]
+     * @var string
+     */
+    protected $to = '';
 
     /**
      * [$subject description]
@@ -47,12 +53,22 @@ class User
     }
 
     /**
-     * [setEmail description]
+     * [setFrom description]
      * @param String $email [set user email]
      */
-    public function setEmail($email)
+    public function setFrom($from_email)
     {
-        $this->email = $email;
+        $this->from = $from_email;
+        return $this;
+    }
+
+    /**
+     * [setTo description]
+     * @param String $email [set user email]
+     */
+    public function setTo($to_email)
+    {
+        $this->to = $to_email;
         return $this;
     }
 
@@ -94,9 +110,18 @@ class User
      * [getEmail description]
      * @return string [description]
      */
-    public function getEmail()
+    public function getFrom()
     {
-        return $this->email;
+        return $this->from;
+    }
+
+    /**
+     * [getTo description]
+     * @return string [description]
+     */
+    public function getTo()
+    {
+        return $this->to;
     }
 
     /**
@@ -111,10 +136,11 @@ class User
     public function toArray()
     {
         return [
-            'name_signer' => $this->getName(),
-            'email'       => $this->getEmail(),
-            'subject'     => $this->getSubject(),
-            'params'      => $this->getParams(),
+            'name'    => $this->getName(),
+            'from'    => $this->getFrom(),
+            'to'      => $this->getTo(),
+            'subject' => $this->getSubject(),
+            'params'  => $this->getParams(),
         ];
     }
 

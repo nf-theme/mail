@@ -1,37 +1,26 @@
 # Send Email Kit
  > It's an extension kit for our theme https://github.com/hieu-pv/nf-theme 
- 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Compile asset file](#compiler)
-- [Service](#service)
-- [Working with local repository](#local-reposoitory)
-- [Extension Configuration](#extension-configuration)
+
 
  
 <a name="installation"></a>
-## Installation
-
-### Install package via Composer
-
+### Installation
 ```php
 composer require vicoders/mail
 ```
 
-### Set up config
+### Configuration
 > Open `config/app.php` file and insert a below line: 
 
 ```php
 "providers"  => [
-    //... (Other Provider)
+    ... (Other Provider)
     \Vicoders\Mail\EmailServiceProvider::class
 ],
 ``` 
 
-<a name="local-reposoitory"></a>
-### Choose type channel
-> Login with admin account, click "Theme Configuration" and choose "For Send Email" tab on admin left sidebar.
-
+#### Choose type channel
+> Login with admin account, click "Theme Configuration" and choose "For Send Email" tab
 - Has 3 type:
   + Api
   + wp_mail
@@ -46,23 +35,34 @@ composer require vicoders/mail
     <li>And use send email function</li>
 </ul>
 
+<strong>Example:<strong>
 ```php
 $data = [
-    'name_author' => 'Garung',
-    'post_title'  => 'this is title',
-    'content'     => 'this is content',
-    'link'        => 'http://google.com',
-    'site_url'    => site_url(),
+    'variables_1' => 'value_1',
+    'variables_2' => 'value_2',
 ];
+
+$config = [
+	'domain_api'      => 'http://domain_api.com', // if use send email via API
+	'mail_host'       => 'smtp.gmail.com',
+	'mail_port'       => '587',
+	'mail_from'       => 'mail_from@gmail.com',
+    'mail_name'       => 'Garung ABC',
+	'mail_username'   => 'MAIL_YOUR_USERNAME',
+	'mail_password'   => 'MAIL_YOUR_PASSWORD',
+	'mail_encryption' => 'tls' // default is tls
+];
+
 $email_template = file_get_contents(PATH_HTML_TEMPLATE);
 
 $user = new \Vicoders\Mail\Models\User();
 $user->setName('Garung')
-->setEmail('email@gmail.com')
-->setSubject('Subject email')
-->setParams($data);
+     ->setTo('email_to@gmail.com')
+     ->setFrom('email_from@gmail.com')
+     ->setSubject('Subject email')
+     ->setParams($data);
 
-$email = new \Vicoders\Mail\Email();
+$email = new \Vicoders\Mail\Email($config);
 $email->send($user, $email_template);
 ```
 
@@ -79,24 +79,33 @@ $email->send($user, $email_template);
     <li>And use send email function</li>
 </ul>
 
+<strong>Example:<strong>
 ```php
    $user_data = [
 	    [
-	        'email' => 'daudq.test@gmail.com',
-	        'name_singer' => 'garung_1'
+	        'to'   => 'cus_email@gmail.com',
+	        'from' => 'your_email@gmail.com',
+	        'name' => 'Name 1'
 	    ],
 	    [
-	        'email' => 'daudq.test2@gmail.com',
-	        'name_singer' => 'garung_2'
+	        'to'   => 'cus_email@gmail.com',
+	        'from' => 'your_email@gmail.com',
+	        'name' => 'Name 2'
 	    ]
 	];
 
+	$config = [
+		'domain_api'      => 'http://domain_api.com', // if use send email via API
+		'mail_host'       => 'smtp.gmail.com',
+		'mail_port'       => '587',
+		'mail_username'   => 'MAIL_YOUR_USERNAME',
+		'mail_password'   => 'MAIL_YOUR_PASSWORD',
+		'mail_encryption' => 'tls' // default is tls
+	];
+
 	$params = [
-	    'name_author' => 'Garung 123',
-	    'post_title'  => 'this is title 123',
-	    'content'     => 'this is content 123',
-	    'link'        => 'http://google.com',
-	    'site_url'    => site_url(),
+	    'variables_1' => 'value_1',
+	    'variables_2' => 'value_2',
 	];
 
 	$email_template = file_get_contents(PATH_FILE_HTML_TEMPLATE);
@@ -104,17 +113,18 @@ $email->send($user, $email_template);
 	$users = collect($user_data);
 	$convert_users = $users->map(function($item) use ($params){
 	    $tmp_user = new \Vicoders\Mail\Models\User();
-	    $tmp_user->setName($item['name_singer'])
-	    ->setEmail($item['email'])
-	    ->setSubject('Subject email')
-	    ->setParams($params);
+	    $tmp_user->setName($item['name'])
+	             ->setTo($item['to'])
+	             ->setFrom($item['from'])
+	             ->setSubject('Subject email')
+	             ->setParams($params);
 	    return $tmp_user;
 	});
 
-	$email = new \Vicoders\Mail\Email();
+	$email = new \Vicoders\Mail\Email($config);
 	$email->multi($convert_users, $email_template);
 ```
 
 ##### Last Mission: 
-- Check your email and Relax
+- Check receiver email
 

@@ -20,4 +20,10 @@ interface ChannelInterface
      * @return [type]                [description]
      */
     public function multi($users, $html_template);
+
+    /**
+     * [setConfig description]
+     * @param array $config [description]
+     */
+    public function setConfig($config = []);
 }
