@@ -44,6 +44,7 @@ class ApiChannel implements Channel
             'html'    => $html_template,
             'subject' => $user->getSubject(),
             'data'    => $user->getParams(),
+            'config'  => $this->config
         ];
         $client = new Client();
         try {
@@ -74,6 +75,7 @@ class ApiChannel implements Channel
             'from'    => $mail_from,
             'html'    => $html_template,
             'subject' => $users->first()['subject'],
+            'config'  => $this->config
         ];
         $client = new Client();
         try {
