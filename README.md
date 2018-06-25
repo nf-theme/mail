@@ -47,7 +47,7 @@ $config = [
 	'mail_host'       => 'smtp.gmail.com',
 	'mail_port'       => '587',
 	'mail_from'       => 'mail_from@gmail.com',
-    'mail_name'       => 'Garung ABC',
+	'mail_name'       => 'Garung ABC',
 	'mail_username'   => 'MAIL_YOUR_USERNAME',
 	'mail_password'   => 'MAIL_YOUR_PASSWORD',
 	'mail_encryption' => 'tls' // default is tls
@@ -98,6 +98,8 @@ $email->send($user, $email_template);
 		'domain_api'      => 'http://domain_api.com', // if use send email via API
 		'mail_host'       => 'smtp.gmail.com',
 		'mail_port'       => '587',
+		'mail_from'       => 'mail_from@gmail.com',
+    	'mail_name'       => 'Garung ABC',
 		'mail_username'   => 'MAIL_YOUR_USERNAME',
 		'mail_password'   => 'MAIL_YOUR_PASSWORD',
 		'mail_encryption' => 'tls' // default is tls
