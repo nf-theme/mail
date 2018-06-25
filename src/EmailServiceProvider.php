@@ -1,5 +1,4 @@
 <?php
-
 namespace Vicoders\Mail;
 
 use Illuminate\Support\ServiceProvider;
@@ -22,14 +21,12 @@ class EmailServiceProvider extends ServiceProvider
                     $this->settingForApiChannel();
                     break;
                 case 'wp_mail':
-                    $this->resetOptions();
                     $this->settingForWpMailChannel();
                     break;
                 case 'mailchimp':
-                    $this->resetOptions();
                     break;
                 default:
-                    $this->settingForApiChannel();
+                    $this->settingForWpMailChannel();
                     break;
             }
         }
@@ -64,11 +61,6 @@ class EmailServiceProvider extends ServiceProvider
             'name'   => 'For Send Email',
             'fields' => [
                 [
-                    'label'   => 'From Email:',
-                    'name'    => 'from_email',
-                    'type'    => Input::EMAIL
-                ],
-                [
                     'label'   => 'Choose a type channel',
                     'name'    => 'type_channel',
                     'type'    => Input::SELECT,
@@ -96,26 +88,10 @@ class EmailServiceProvider extends ServiceProvider
     }
 
     public function settingForApiChannel() {
-        ThemeOptionManager::add([
-            'name'   => 'For Send Email Via Api',
-            'fields' => [
-                [
-                    'label'    => 'Domain Api',
-                    'name'     => 'domain_api',
-                    'type'     => Input::TEXT,
-                    'required' => true,
-                ],
-            ],
-        ]);
-
         App::bind(\Vicoders\Mail\Channels\Channel::class, \Vicoders\Mail\Channels\ApiChannel::class);
     }
 
     public function settingForWpMailChannel() {
         App::bind(\Vicoders\Mail\Channels\Channel::class, \Vicoders\Mail\Channels\WpMailChannel::class);
-    }
-
-    public function resetOptions() {
-        delete_option('domain_api');
     }
 }
