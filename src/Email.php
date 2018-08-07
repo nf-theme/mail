@@ -11,9 +11,21 @@ use Vicoders\Mail\Facades\View;
 
 class Email
 {
+    /**
+     * [$config description]
+     * @var array
+     */
+    protected $config = [];
+
+    /**
+     * [$channel description]
+     * @var string
+     */
     protected $channel;
-    public function __construct()
+
+    public function __construct($config = [])
     {
+        $this->config = $config;
         $this->channel = App::make(Channel::class);
     }
 
@@ -27,7 +39,7 @@ class Email
             throw new \Exception("Parammeters must an array", 2);
         }
         $template = BladeCompiler::compileString($html_template, $params);
-        $this->channel->send($user, $template);
+        $this->channel->setConfig($this->config)->send($user, $template);
     }
 
     public function multi($users, $html_template) {
@@ -40,7 +52,6 @@ class Email
             throw new \Exception("Parammeters must an array", 2);
         }
         $template = BladeCompiler::compileString($html_template, $params);
-        
-        $this->channel->multi($users, $template);
+        $this->channel->setConfig($this->config)->multi($users, $template);
     }
 }

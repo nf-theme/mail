@@ -12,7 +12,12 @@ use Vicoders\Mail\Models\User;
  */
 class ApiChannel implements Channel
 {
-    protected $domain_api = '';
+    /**
+     * [$config description]
+     * @var array
+     */
+    protected $config = [];
+
     public function __construct()
     {}
 
@@ -24,21 +29,23 @@ class ApiChannel implements Channel
      */
     public function send(User $user, $html_template)
     {
-        $from_email = get_option('from_email');
-        if (empty($from_email)) {
-            throw new \Exception("Please, set email of sender into theme options on admin dashboard", 400);
+        $domain_api = $this->config['domain_api'];
+        $mail_from = $this->config['mail_from'];
+        if(empty($mail_from)) {
+            $mail_from = '';
         }
-        $domain_api = get_option('domain_api');
         if (empty($domain_api)) {
-            throw new \Exception("Please, set domain api into theme options on admin dashboard", 400);
+            throw new \Exception("Please, set domain api into theme options !", 400);
         }
         $url     = $domain_api . "/api/emails/send";
         $request = [
-            'to'      => $user->getEmail(),
-            'from'    => $from_email,
+            'domain'  => $_SERVER['SERVER_NAME'],
+            'to'      => $user->getTo(),
+            'from'    => $mail_from,
             'html'    => $html_template,
             'subject' => $user->getSubject(),
             'data'    => $user->getParams(),
+            'config'  => $this->config
         ];
         $client = new Client();
         try {
@@ -58,20 +65,19 @@ class ApiChannel implements Channel
         $users = $users->map(function($item){
             return $item->toArray();
         });
-        $from_email = get_option('from_email');
-        if (empty($from_email)) {
-            throw new \Exception("Please, set email of sender into theme options on admin dashboard", 400);
-        }
-        $domain_api = get_option('domain_api');
+        $domain_api = $this->config['domain_api'];
+        $mail_from = $this->config['mail_from'];
         if (empty($domain_api)) {
-            throw new \Exception("Please, set domain api into theme options on admin dashboard", 400);
+            throw new \Exception("Please, set domain api into theme options !", 400);
         }
         $url     = $domain_api . "/api/emails/bulk";
         $request = [
+            'domain'  => $_SERVER['SERVER_NAME'],
             'users'   => $users->toArray(),
-            'from'    => $from_email,
+            'from'    => $mail_from,
             'html'    => $html_template,
             'subject' => $users->first()['subject'],
+            'config'  => $this->config
         ];
         $client = new Client();
         try {
@@ -84,5 +90,10 @@ class ApiChannel implements Channel
             }
             die;
         }
+    }
+
+    public function setConfig($config = []) {
+        $this->config = $config;
+        return $this;
     }
 }
