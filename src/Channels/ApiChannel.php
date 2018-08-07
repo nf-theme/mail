@@ -39,6 +39,7 @@ class ApiChannel implements Channel
         }
         $url     = $domain_api . "/api/emails/send";
         $request = [
+            'domain'  => $_SERVER['SERVER_NAME'],
             'to'      => $user->getTo(),
             'from'    => $mail_from,
             'html'    => $html_template,
@@ -71,6 +72,7 @@ class ApiChannel implements Channel
         }
         $url     = $domain_api . "/api/emails/bulk";
         $request = [
+            'domain'  => $_SERVER['SERVER_NAME'],
             'users'   => $users->toArray(),
             'from'    => $mail_from,
             'html'    => $html_template,
