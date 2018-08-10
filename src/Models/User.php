@@ -25,10 +25,40 @@ class User
     protected $to = '';
 
     /**
+     * [$cc description]
+     * @var [type]
+     */
+    protected $cc = [];
+
+    /**
+     * [$bcc description]
+     * @var [type]
+     */
+    protected $bcc = [];
+
+    /**
      * [$subject description]
      * @var string
      */
     protected $subject = '';
+
+    /**
+     * [$domain description]
+     * @var string
+     */
+    protected $domain = '';
+
+    /**
+     * [$app_id description]
+     * @var [type]
+     */
+    protected $app_id;
+
+    /**
+     * [$user_id description]
+     * @var [type]
+     */
+    protected $user_id;
 
     /**
      * [$params description]
@@ -53,6 +83,33 @@ class User
     }
 
     /**
+     * [setDomain description]
+     * @param [type] $domain [description]
+     */
+    public function setDomain($domain) {
+        $this->domain = $domain;
+        return $this;
+    }
+
+    /**
+     * [setUserId description]
+     * @param [type] $user_id [description]
+     */
+    public function setUserId($user_id) {
+        $this->user_id = $user_id;
+        return $this;
+    }
+
+    /**
+     * [setAppId description]
+     * @param [type] $app_id [description]
+     */
+    public function setAppId($app_id) {
+        $this->app_id = $app_id;
+        return $this;
+    }
+
+    /**
      * [setFrom description]
      * @param String $email [set user email]
      */
@@ -69,6 +126,18 @@ class User
     public function setTo($to_email)
     {
         $this->to = $to_email;
+        return $this;
+    }
+
+    public function setCc($cc)
+    {
+        $this->cc = $cc;
+        return $this;
+    }
+
+    public function setBcc($bcc)
+    {
+        $this->bcc = $bcc;
         return $this;
     }
 
@@ -124,6 +193,34 @@ class User
         return $this->to;
     }
 
+    public function getCc()
+    {
+        return $this->cc;
+    }
+
+    public function getBcc()
+    {
+        return $this->bcc;
+    }
+
+    /**
+     * [getUserId description]
+     * @return integer [description]
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * [getAppId description]
+     * @return integer [description]
+     */
+    public function getAppId()
+    {
+        return $this->app_id;
+    }
+
     /**
      * [getParams description]
      * @return array [description]
@@ -141,6 +238,14 @@ class User
             'to'      => $this->getTo(),
             'subject' => $this->getSubject(),
             'params'  => $this->getParams(),
+        ];
+    }
+
+    public function formatUser()
+    {
+        return [
+            'name'    => $this->getName(),
+            'email'      => $this->getTo()
         ];
     }
 

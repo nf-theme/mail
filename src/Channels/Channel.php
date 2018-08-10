@@ -14,15 +14,7 @@ interface Channel extends ChannelInterface
      * @param  string $html_template [description]
      * @return [type]                [description]
      */
-    public function send(User $user, $html_template);
-
-    /**
-     * [multi description]
-     * @param  array $users         an array User Object
-     * @param  string $html_template [description]
-     * @return [type]                [description]
-     */
-    public function multi($users, $html_template);
+    public function send($users, $html_template);
 
     /**
      * [config Config host and relate]

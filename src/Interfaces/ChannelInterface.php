@@ -11,15 +11,7 @@ interface ChannelInterface
      * @param  string $html_template [description]
      * @return [type]                [description]
      */
-    public function send(User $user, $html_template);
-
-    /**
-     * [multi description]
-     * @param  array $users         an array of User Objects
-     * @param  string $html_template [description]
-     * @return [type]                [description]
-     */
-    public function multi($users, $html_template);
+    public function send($users, $html_template);
 
     /**
      * [setConfig description]

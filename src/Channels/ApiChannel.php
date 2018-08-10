@@ -27,29 +27,41 @@ class ApiChannel implements Channel
      * @param  array  $data     [description]
      * @return [type]           [description]
      */
-    public function send(User $user, $html_template)
+    public function send($users, $html_template)
     {
-        $domain_api = $this->config['domain_api'];
-        $mail_from = $this->config['mail_from'];
-        if(empty($mail_from)) {
-            $mail_from = '';
-        }
+        $tmp_users = $users->map(function ($item) {
+            return $item->formatUser();
+        });
+        $domain_api = $this->config['apiuri'];
         if (empty($domain_api)) {
             throw new \Exception("Please, set domain api into theme options !", 400);
         }
         $url     = $domain_api . "/api/emails/send";
         $request = [
             'domain'  => $_SERVER['SERVER_NAME'],
-            'to'      => $user->getTo(),
-            'from'    => $mail_from,
-            'html'    => $html_template,
-            'subject' => $user->getSubject(),
-            'data'    => $user->getParams(),
-            'config'  => $this->config
+            'app_id'  => $users[0]->getAppId(),
+            'user_id' => $users[0]->getUserId(),
+            'args'    => [
+                'config' => $this->config,
+                'data'   => [
+                    'users'   => $tmp_users,
+                    'cc'      => $users[0]->getCc(),
+                    'bcc'     => $users[0]->getBcc(),
+                    'html'    => $html_template,
+                    'subject' => $users[0]->getSubject(),
+                ],
+            ],
         ];
+        \NF\Facades\Log::info($request);
         $client = new Client();
         try {
-            $res  = $client->request('POST', $url, ['json' => $request]);
+            $res = $client->request('POST', $url, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization'     => base64_encode(EMAIL_USERNAME . ':' . EMAIL_PASSWORD)
+                ],
+                'json'    => $request,
+            ]);
             $body = $res->getBody();
         } catch (RequestException $e) {
             echo \GuzzleHttp\Psr7\str($e->getRequest());
@@ -60,39 +72,8 @@ class ApiChannel implements Channel
         }
     }
 
-    public function multi($users, $html_template)
+    public function setConfig($config = [])
     {
-        $users = $users->map(function($item){
-            return $item->toArray();
-        });
-        $domain_api = $this->config['domain_api'];
-        $mail_from = $this->config['mail_from'];
-        if (empty($domain_api)) {
-            throw new \Exception("Please, set domain api into theme options !", 400);
-        }
-        $url     = $domain_api . "/api/emails/bulk";
-        $request = [
-            'domain'  => $_SERVER['SERVER_NAME'],
-            'users'   => $users->toArray(),
-            'from'    => $mail_from,
-            'html'    => $html_template,
-            'subject' => $users->first()['subject'],
-            'config'  => $this->config
-        ];
-        $client = new Client();
-        try {
-            $res  = $client->request('POST', $url, ['json' => $request]);
-            $body = $res->getBody();
-        } catch (RequestException $e) {
-            echo \GuzzleHttp\Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo \GuzzleHttp\Psr7\str($e->getResponse());
-            }
-            die;
-        }
-    }
-
-    public function setConfig($config = []) {
         $this->config = $config;
         return $this;
     }
