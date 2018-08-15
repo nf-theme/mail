@@ -20,9 +20,11 @@ composer require vicoders/mail
 ],
 ``` 
 
-##### 2. Update `wp-config.php` file and insert constants as:
-	+ define('EMAIL_USERNAME', '<username>');
-	+ define('EMAIL_PASSWORD', '<password>');
+##### 2. Insert and Update `wp-config.php` file:
+```php
+	define('EMAIL_USERNAME', '<username>');
+	define('EMAIL_PASSWORD', '<password>');
+```
 
 #### Choose type channel
 > Login with admin account, click "Theme Configuration" and choose "For Send Email" tab
@@ -45,7 +47,7 @@ composer require vicoders/mail
 
 <strong>Example:<strong>
 ```php
-   $user_data = [
+	$user_data = [
 	    [
 	        'email' => 'cus_email@gmail.com',
 	        'name'  => 'Name 1'
@@ -63,16 +65,19 @@ composer require vicoders/mail
 	    'variables_1' => 'value_1',
 	    'variables_2' => 'value_2',
 	];
+	$subject = 'No subject';
+	$app_id  = 1; 
+	$user_id = 1; 
 
 	$email_template = file_get_contents(PATH_FILE_HTML_TEMPLATE);
 
 	$users = collect($user_data);
-	$users = $users->map(function($item) use ($params, $subject){
+	$users = $users->map(function($item) use ($params, $subject, $app_id, $user_id){
 	    $tmp_user = new \Vicoders\Mail\Models\User();
 	    $tmp_user->setName($item['name'])
 	             ->setTo($item['email'])
-	             ->setAppId(1)
-	             ->setUserId(1)
+	             ->setAppId($app_id)
+	             ->setUserId($user_id)
 	             ->setSubject($subject)
 	             ->setParams($params);
 	    return $tmp_user;
