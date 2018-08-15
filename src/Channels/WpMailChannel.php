@@ -26,23 +26,18 @@ class WpMailChannel implements Channel
      * @param  array  $data     [description]
      * @return [type]           [description]
      */
-    public function send(User $user, $html_template)
+    public function send($users, $html_template)
     {
-        $headers = ['Content-Type: text/html; charset=UTF-8'];
         try {
-            wp_mail($user->getEmail(), $user->getSubject(), $html_template, $headers);
+            $headers = ['Content-Type: text/html; charset=UTF-8'];
+            $users = $users->toArray();
+            if(!empty($users)) {
+                foreach ($users as $key => $user) {
+                    wp_mail($user->getTo(), $user->getSubject(), $html_template, $headers);
+                }
+            }
         } catch (RequestException $e) {
             throw new \Exception("An error occurred when send email", 400);
-        }
-    }
-
-    public function multi($users, $html_template)
-    {
-        $users = $users->toArray();
-        if(!empty($users)) {
-            foreach ($users as $key => $user) {
-                $this->send($user, $html_template);
-            }
         }
     }
 

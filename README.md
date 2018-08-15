@@ -10,7 +10,8 @@ composer require vicoders/mail
 ```
 
 ### Configuration
-> 1. Open `config/app.php` file and insert a below line: 
+
+##### 1. Open `config/app.php` file and insert a below line: 
 
 ```php
 "providers"  => [
@@ -19,7 +20,7 @@ composer require vicoders/mail
 ],
 ``` 
 
-> 2. Update `wp-config.php` file and insert constants as:
+##### 2. Update `wp-config.php` file and insert constants as:
 	+ define('EMAIL_USERNAME', '<username>');
 	+ define('EMAIL_PASSWORD', '<password>');
 
@@ -70,16 +71,17 @@ composer require vicoders/mail
 	    $tmp_user = new \Vicoders\Mail\Models\User();
 	    $tmp_user->setName($item['name'])
 	             ->setTo($item['email'])
+	             ->setAppId(1)
+	             ->setUserId(1)
 	             ->setSubject($subject)
 	             ->setParams($params);
 	    return $tmp_user;
 	});
 
 	$email = new \Vicoders\Mail\Email($config);
-	$email->multi($users, $email_template);
+	$email->send($users, $email_template);
 ```
 > </strong>Note - Options for Config</strong>: <b>mail_host</b>, <b>mail_port</b>, <b>mail_from</b>, <b>mail_name</b>, <b>mail_username</b>, <b>mail_password</b>, <b>mail_encryption</b>
 
 ##### Last Mission: 
 - Check receiver email
-
