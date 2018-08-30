@@ -22,8 +22,13 @@ composer require vicoders/mail
 
 ##### 2. Insert and Update `wp-config.php` file:
 ```php
-	define('EMAIL_USERNAME', '<username>');
-	define('EMAIL_PASSWORD', '<password>');
+define('SENDMAIL_DRIVER', 'wp_mail'); // api, wp_mail, mailchimp (updating). Default is wp_mail
+```
+
+- If ```SENDMAIL_DRIVER``` is ```api```, insert 2 constants to `wp-config.php`: 
+```php
+define('EMAIL_USERNAME', '<username>');
+define('EMAIL_PASSWORD', '<password>');
 ```
 
 #### Choose type channel
@@ -86,7 +91,16 @@ composer require vicoders/mail
 	$email = new \Vicoders\Mail\Email($config);
 	$email->send($users, $email_template);
 ```
-> </strong>Note - Options for Config</strong>: <b>mail_host</b>, <b>mail_port</b>, <b>mail_from</b>, <b>mail_name</b>, <b>mail_username</b>, <b>mail_password</b>, <b>mail_encryption</b>
-
+> </strong>Note - Options for Config</strong>: 
+```
+Expand Options:
+- mail_host
+- mail_port, 
+- mail_from, 
+- mail_name, 
+- mail_username, 
+- mail_password, 
+- mail_encryption
+```
 ##### Last Mission: 
 - Check receiver email
