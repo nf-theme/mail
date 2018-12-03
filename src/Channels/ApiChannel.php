@@ -1,11 +1,11 @@
 <?php
 
-namespace Vicoders\Mail\Channels;
+namespace NF\Mail\Channels;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use Vicoders\Mail\Channels\Channel;
-use Vicoders\Mail\Models\User;
+use NF\Mail\Channels\Channel;
+use NF\Mail\Models\User;
 
 /**
  *

@@ -1,5 +1,5 @@
 <?php
-namespace Vicoders\Mail;
+namespace NF\Mail;
 
 use Illuminate\Support\ServiceProvider;
 use NF\Facades\App;
@@ -29,10 +29,10 @@ class EmailServiceProvider extends ServiceProvider
     }
 
     public function settingForApiChannel() {
-        App::bind(\Vicoders\Mail\Channels\Channel::class, \Vicoders\Mail\Channels\ApiChannel::class);
+        App::bind(\NF\Mail\Channels\Channel::class, \NF\Mail\Channels\ApiChannel::class);
     }
 
     public function settingForWpMailChannel() {
-        App::bind(\Vicoders\Mail\Channels\Channel::class, \Vicoders\Mail\Channels\WpMailChannel::class);
+        App::bind(\NF\Mail\Channels\Channel::class, \NF\Mail\Channels\WpMailChannel::class);
     }
 }

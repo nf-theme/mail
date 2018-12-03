@@ -1,6 +1,6 @@
 <?php
 
-namespace Vicoders\Mail\Services;
+namespace NF\Mail\Services;
 
 class View
 {

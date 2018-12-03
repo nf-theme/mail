@@ -1,19 +1,21 @@
 {
-    "name": "vicoders/mail",
-    "description": "Extension kit for NF Theme",
-    "license": "MIT",
-    "authors": [{
-        "name": "Garung",
-        "email": "daudq.info@gmail.com"
-    }],
-    "autoload": {
-        "psr-4": {
-            "Vicoders\\Mail\\": "src/"
-        }
-    },
-    "require": {
-        "php": ">=5.6",
-        "nf/core": ">=2.0",
-        "nf/option": "^1.0"
+  "name": "nf/mail",
+  "description": "Send a bunch of email with template",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Garung",
+      "email": "daudq.info@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "NF\\Mail\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=5.6",
+    "nf/core": "*",
+    "nf/option": "*"
+  }
 }

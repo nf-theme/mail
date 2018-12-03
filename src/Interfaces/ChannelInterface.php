@@ -1,13 +1,13 @@
 <?php
-namespace Vicoders\Mail\Interfaces;
+namespace NF\Mail\Interfaces;
 
-use Vicoders\Mail\Models\User;
+use NF\Mail\Models\User;
 
 interface ChannelInterface
 {
     /**
      * [send description]
-     * @param  Vicoders\Mail\Models\User $user    User model
+     * @param  NF\Mail\Models\User $user    User model
      * @param  string $html_template [description]
      * @return [type]                [description]
      */

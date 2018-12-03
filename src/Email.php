@@ -1,13 +1,13 @@
 <?php
 
-namespace Vicoders\Mail;
+namespace NF\Mail;
 
 use NF\CompileBladeString\Facade\BladeCompiler;
 use NF\Facades\App;
 use NightFury\Option\Abstracts\Input;
 use NightFury\Option\Facades\ThemeOptionManager;
-use Vicoders\Mail\Channels\Channel;
-use Vicoders\Mail\Facades\View;
+use NF\Mail\Channels\Channel;
+use NF\Mail\Facades\View;
 
 class Email
 {

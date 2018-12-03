@@ -1,6 +1,6 @@
 <?php
 
-namespace Vicoders\Mail\Facades;
+namespace NF\Mail\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -8,6 +8,6 @@ class View extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return new \Vicoders\Mail\Services\View;
+        return new \NF\Mail\Services\View;
     }
 }

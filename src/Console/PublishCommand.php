@@ -1,6 +1,6 @@
 <?php
 
-namespace Vicoders\Notification\Console;
+namespace NF\Notification\Console;
 
 use Exception;
 use Symfony\Component\Console\Command\Command;

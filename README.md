@@ -6,7 +6,7 @@
 <a name="installation"></a>
 ### Installation
 ```php
-composer require vicoders/mail
+composer require nf/mail
 ```
 
 ### Configuration
@@ -16,7 +16,7 @@ composer require vicoders/mail
 ```php
 "providers"  => [
     ... (Other Provider)
-    \Vicoders\Mail\EmailServiceProvider::class
+    \NF\Mail\EmailServiceProvider::class
 ],
 ``` 
 
@@ -78,7 +78,7 @@ define('EMAIL_PASSWORD', '<password>');
 
 	$users = collect($user_data);
 	$users = $users->map(function($item) use ($params, $subject, $app_id, $user_id){
-	    $tmp_user = new \Vicoders\Mail\Models\User();
+	    $tmp_user = new \NF\Mail\Models\User();
 	    $tmp_user->setName($item['name'])
 	             ->setTo($item['email'])
 	             ->setAppId($app_id)
@@ -88,7 +88,7 @@ define('EMAIL_PASSWORD', '<password>');
 	    return $tmp_user;
 	});
 
-	$email = new \Vicoders\Mail\Email($config);
+	$email = new \NF\Mail\Email($config);
 	$email->send($users, $email_template);
 ```
 > </strong>Note - Options for Config</strong>: 

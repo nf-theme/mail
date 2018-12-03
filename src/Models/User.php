@@ -1,5 +1,5 @@
 <?php
-namespace Vicoders\Mail\Models;
+namespace NF\Mail\Models;
 
 /**
  *
